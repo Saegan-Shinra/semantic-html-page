@@ -64,7 +64,10 @@ nav a:focus-visible {
 }
 
 main {
-	max-width: 900px;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 24px;
+	max-width: 1100px;
 	margin: 0 auto;
 	padding: 0 20px;
 }
@@ -105,7 +108,9 @@ footer {
 
 /* CLASS SELECTOR */
 .card {
-	margin: 0 0 25px;
+	min-width: 0;
+	margin: 0;
+	overflow-wrap: anywhere;
 	padding: 25px;
 	border: 2px solid #c6d4e5;
 	border-radius: 10px;
@@ -116,4 +121,57 @@ footer {
 #about {
 	border-left: 8px solid #f59e0b;
 	background-color: #fff8eb;
+}
+
+/* Mobile: stack navigation links for comfortable tap targets. */
+@media (max-width: 479px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav a {
+        display: block;
+    }
+
+    .card {
+        padding: 18px;
+    }
+}
+
+/* Tablet: About spans the page; Goals and Skills share a row. */
+@media (min-width: 700px) {
+    main {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+    }
+
+    #about {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Desktop: About sits beside a column containing Goals and Skills. */
+@media (min-width: 1050px) {
+    main {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+        grid-template-areas:
+            "about goals"
+            "about skills";
+    }
+
+    #about {
+        grid-area: about;
+    }
+
+    #goals {
+        grid-area: goals;
+    }
+
+    #skills {
+        grid-area: skills;
+    }
 }
